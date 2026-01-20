@@ -1,0 +1,809 @@
+<!DOCTYPE html><html lang="pl"><head>
+
+<script src="js/jquery.min.js"></script>
+
+    <script>
+    function set_validator_errors(){
+        orderValidator.errorTitle = 'Proszę poprawić następujące błędy'; 
+
+        orderValidator.errorNameField = 'Imię'; 
+        orderValidator.errorNameMess = 'Wpisz swoje imię'; 
+        
+        orderValidator.errorPhoneField = 'Telefon'; 
+        orderValidator.errorPhoneMess = 'Wpisz poprawny numer telefonu'; 
+        
+        orderValidator.errorAddress = 'Wpisz poprawny adres'; 
+        orderValidator.errorRequired = 'Pole wymagane'; 
+        orderValidator.errorMaxLength = 'poprawny maksymalny znak {1}'; 
+        orderValidator.errorMinLength = 'prawidłowy znak minimum {1}'; 
+        orderValidator.errorEmailField = 'E-mail';
+        orderValidator.errorEmail = 'podano nieprawidłowy adres e-mail';
+        }
+    </script>
+    
+<script>
+
+
+window.app = {
+    timestamp: parseInt((new Date()).getTime() / 1000),
+    jq: jQuery,
+    formAction: window.location.href,
+    leadToken: '69700c1b76fbf6.22088349',
+    offers: {"50764":{"id":50764,"country":{"code":"PL","name":"\u041f\u043e\u043b\u044c\u0448\u0430"},"price":"99","price2":"299","currency":{"code":"PLN","name":"Z\u0141"},"discount":"","delivery_price":"","link":"","product_sku":"","prepaid_info_html":""}},
+    currentOffer: {"id":50764,"country":{"code":"PL","name":"\u041f\u043e\u043b\u044c\u0448\u0430"},"price":"99","price2":"299","currency":{"code":"PLN","name":"Z\u0141"},"discount":"","delivery_price":"","link":"","product_sku":"","prepaid_info_html":""},
+    allowedCountries: ["PL"],
+    _setOfferId: false,
+    streamHid: '',
+    showcaseUrl: '',
+    disablePhoneMask: Boolean(),
+    
+    setOffer: function (offerId) {
+        if (offerId == this._setOfferId) {
+            return ;
+        }
+        this._setOfferId = offerId;
+        if (offerId) {
+            var offer = app.offers[offerId];
+            var previousOffer = app.currentOffer;
+            app.currentOffer = offer;
+            var event = this.jq.Event("offerchange");
+            event.previousOffer = previousOffer;
+            event.currentOffer = app.currentOffer;
+            this.jq(document).trigger(event);
+            this.updatePage(offer);
+        } else {
+            $('input[name=country]').val('');
+        }
+    },
+    
+    updatePage: function(offer) {
+        $('x-newprice').html(offer.price);
+        $('x-oldprice').html(offer.price2);
+        $('x-currency').html(offer.currency.name);
+        $('input[name=offer], select[name=offer]').val(offer.id);
+        $('input[name=country]').val(offer.country.code);
+    },
+
+    blockForm: function() {
+        // Блокируем кнопки при отправке формы
+        $('input[type=submit]', $(this)).prop( 'disabled', true ).attr( 'disabled', true );
+        $('button', $(this)).prop( 'disabled', true ).attr( 'disabled', true );
+        app.incompleteOrder.lock = true;
+        clearTimeout(app.incompleteOrder.timer);
+    },
+
+    unblockForm: function() {
+        $('input[type=submit]', $(this)).prop( 'disabled', false ).attr( 'disabled', false );
+        $('button[type=submit]', $(this)).prop( 'disabled', false ).attr( 'disabled', false );
+        app.incompleteOrder.lock = false;
+        clearTimeout(app.incompleteOrder.timer);
+    }
+
+};
+
+
+</script><script src="js/form.validate.js"></script>
+<script src="js/interPhoneCodes.js"></script>
+<script src="js/showcase.js"></script>
+<script src="js/form.incomplete.js"></script>
+<script src="js/main2.js"></script>
+
+
+
+	<meta charset="utf-8">
+	<title>Hemoulgan</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+	<script src="js/jquery-3.4.1.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Ads -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17890447518"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17890447518');
+</script>
+	</head>
+
+<body>
+	<header class="header">
+		<div class="container">
+			<img src="images/logo.png" alt="logo" class="logo">
+			<span class="header-spec"><a href="#specialist" class="scroll-to">Opinie ekspertów</a></span>
+			<span class="header-rewiev"><a href="#review" class="scroll-to">Opinie klientów</a></span>
+			<div class="btn">Poproś o oddzwonienie
+				<div class="btn ever-popup-btn header-btn-hover">Poproś o oddzwonienie</div>
+			</div>
+		</div>
+	</header>
+	<section class="section1">
+		<div class="container">
+			<div class="main-block clearfix">
+				<div class="main-block-center">
+					<img src="images/product1.png" alt="pack" class="img">
+				</div>
+				<div class="main-block-left">
+					<h1 class="main-block-title"><span>Hemoulgan – </span>kompleksowy środek na hemoroidy</h1>
+					<h3 class="main-block-subtitle">Eliminuje przyczynę choroby i zapobiega nawrotom hemoroidów</h3>
+					<ul class="main-block-list">
+						<li class="main-block-item">
+							Zatrzymuje krwawienie <br><span> w ciągu 1 kuracji</span>
+						</li>
+						<li class="main-block-item">
+							Łagodzi stany zapalne i ból <br><span>w trakcie 1-2 tygodni</span>
+						</li>
+						<li class="main-block-item">
+							Zapobiega nawrotowi hemoroidów <br><span>po przejściu pełnej kuracji</span>
+						</li>
+					</ul>
+				</div>
+				<div class="main-block-right">
+					<p class="main-block-text">W tym roku <span>12 369</span> osób pozbyło się hemoroidów dzięki
+						Hemoulgan</p>
+
+					<form action="" method="post" class="x_order_form main-block-form al-form">
+						<br>
+						    <input name="csrf_token" type="hidden" value="bde737df579a16081a5073f71023bbc2:1768950811">
+    <select name="offer" class="form-control country_chang" style="display: none;">
+        <option data-country-code="PL" selected="selected" value="50764">
+            Польша        </option>
+    </select>
+
+    	
+						<div class="flex-price">
+							<div class="old-price">
+								<p class="top-text">Stara cena</p>
+								<p class="price"><span class="x_price_previous number al-raw-cost-promo"><x-oldprice>299</x-oldprice></span><span class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span></p>
+							</div>
+							<div class="new-price">
+								<p class="top-text">Nowa cena</p>
+								<p class="price radius"><span class="x_price_current number al-raw-cost"><x-newprice>99</x-newprice></span><span class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span>*</p>
+							</div>
+						</div>
+						<div class="input-wrapper name-label">
+							<input type="text" placeholder="Imię i Nazwisko" required="" class="input" name="name" autocomplete="name" id="name" title="Dozwolone są tylko litery i spacje">						<label for="name"></label>
+							<i></i>
+						</div>
+						<div class="input-wrapper phone-label">
+							<input type="tel" placeholder="Numer telefonu" required="" class="input" name="phone" autocomplete="tel" id="phone" title="Proszę wpisać numer zgodnie z przykładem: +48123456789 lub 123456789">
+							<label for="phone"></label>
+							<i></i>
+						</div>
+						<div class="relative">
+							<button class="form-btn">Zamów</button>
+							<button class="form-btn form-btn-hover">Zamów</button>
+						</div>
+						<p class="bottom-text">Pozostało <span class="lastpack js-countdown">20</span> opakowań w cenie
+							promocyjnej</p>
+					</form>
+					<p class="save-text">Twoje dane są chronione!</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="section2">
+		<div class="container">
+			<h2 class="section2-title">Powikłania przy hemoroidach,<br><span>jeśli nie zaczniesz z nimi walczyć na
+					czas</span></h2>
+			<div class="owl-carousel">
+				<div>
+					<div class="carousel-img">
+						<img src="images/carousel1.png" alt="carousel1">
+						<span class="circle-gradient"></span>
+					</div>
+					<p>Zapalenie krocza i narządów płciowych</p>
+				</div>
+				<div>
+					<div class="carousel-img">
+						<img src="images/carousel2.png" alt="carousel2">
+						<span class="circle-gradient"></span>
+					</div>
+					<p>Martwica odbytnicy </p>
+				</div>
+				<div>
+					<div class="carousel-img">
+						<img src="images/carousel3.png" alt="carousel3">
+						<span class="circle-gradient"></span>
+					</div>
+					<p>Ropne zapalenie, zapalenie przyzębia</p>
+				</div>
+				<div>
+					<div class="carousel-img">
+						<img src="images/carousel4.png" alt="carousel4">
+						<span class="circle-gradient"></span>
+					</div>
+					<p>Ciężkie stany zapalne prowadzące do zakażenia jamy brzusznej</p>
+				</div>
+				<div>
+					<div class="carousel-img">
+						<img src="images/carousel5.png" alt="carousel5">
+						<span class="circle-gradient"></span>
+					</div>
+					<p>Zakrzepica (tworzenie się skrzepów krwi)</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="section3">
+		<div class="container">
+			<h2 class="section3-title">Hemoulgan działa kompleksowo:</h2>
+			<p class="section3-subtitle">eliminuje <span>objawy</span> i <span>przyczyny</span> hemoroidów</p>
+			<h3 class="block-title">Kapsułki działają w dwóch kierunkach: miejscowo i na przepływ krwi w całym organizmie</h3>
+			<div class="main-content clearfix">
+				<div class="center-block">
+					<img src="images/product1.png" alt="pack" class="img">
+					<div class="circle">
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+				<div class="left-block">
+					<ul>
+						<li class="block-item">Szybko eliminują krwawienie
+							<span>dzięki ekstraktowi z miłorzębu japońskiego</span>
+						</li>
+						<li class="block-item">Łagodzą swędzenie i eliminują ból
+							<span>dzięki niacynie</span>
+						</li>
+						<li class="block-item">Leczą pęknięcia i wrzody
+							<span>dzięki witaminom B1, B6 i B12</span>
+						</li>
+						<li class="block-item">Zapobiegają patologii żył podczas ciąży
+							<span>dzięki cynkowi i witaminie C</span>
+						</li>
+					</ul>
+				</div>
+				<div class="right-block">
+					<ul>
+						<li class="block-item">Przywracają napięcie i elastyczność żył
+							<span>dzięki biotynie</span>
+						</li>
+						<li class="block-item">Rozpoczynają regenerację tkanki odbytu
+							<span>dzięki kwasowi foliowemu</span>
+						</li>
+						<li class="block-item">Eliminują infekcje i procesy ropne
+							<span>dzięki witaminie E</span>
+						</li>
+						<li class="block-item">Zapobiegają powrotowi hemoroidów
+							<span>dzięki selenowi</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="section4">
+		<div class="container">
+			<h2 class="section4-title">Hemoulgan pomaga <br><span>we wszystkich stadiach hemoroidów</span></h2>
+			<ul class="section4-list">
+				<li class="section4-item">
+					<h4 class="section4-subtitle">Hemoroidy wewnętrzne</h4>
+					<div class="list-block">
+						<div class="list-block-img">
+							<img src="images/section4-1.png" alt="4-1" class="img">
+						</div>
+						<p>Objawy:</p>
+						<ul class="section4-sublist">
+							<li class="section4-subitem">Krwawienie podczas wypróżnienia lub wysiłku</li>
+							<li class="section4-subitem">Węzły powstają w kanale odbytu</li>
+							<li class="section4-subitem">Węzły znajdują się pod błoną śluzową</li>
+							<li class="section4-subitem">W zależności od stadium zwiększa się rozmiar węzłów. Może
+								wypaść</li>
+							<li class="section4-subitem">Powstaje obrzęk i silny ból</li>
+						</ul>
+					</div>
+				</li>
+				<li class="section4-item">
+					<h4 class="section4-subtitle">Hemoroidy zewnętrzne</h4>
+					<div class="list-block">
+						<div class="list-block-img">
+							<img src="images/section4-2.png" alt="4-2" class="img">
+						</div>
+						<p>Objawy:</p>
+						<ul class="section4-sublist">
+							<li class="section4-subitem">Krwawienie zwykle nie występuje</li>
+							<li class="section4-subitem">Węzły pojawiają się w pobliżu odbytu (nie mylić z wypadniętymi
+								węzłami!)</li>
+							<li class="section4-subitem">Węzły znajdują się pod skórą</li>
+							<li class="section4-subitem">Rozmiar węzłów - 3 mm lub więcej</li>
+							<li class="section4-subitem">Pojawia się dyskomfort i ból</li>
+						</ul>
+					</div>
+				</li>
+				<li class="section4-item">
+					<h4 class="section4-subtitle">Mieszane</h4>
+					<div class="list-block">
+						<div class="list-block-img">
+							<img src="images/section4-3.png" alt="4-3" class="img">
+						</div>
+						<p>Objawy:</p>
+						<ul class="section4-sublist">
+							<li class="section4-subitem no-icon">Łączy właściwości form wewnętrznych i zewnętrznych:</li>
+							<li class="section4-subitem">Krwawienie</li>
+							<li class="section4-subitem">Węzły zewnętrzne i wewnętrzne</li>
+							<li class="section4-subitem">Dyskomfort</li>
+							<li class="section4-subitem">Obrzęk</li>
+							<li class="section4-subitem">Ból</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<section class="section5">
+		<div class="container">
+			<h2 class="section5-title">Sposób użycia</h2>
+			<div class="section5-block">
+				<div class="howto-item">
+					<div><img src="images/night.svg" class="howto-img"></div>
+					<div class="todo">Stosuj w nocy<br>(przed snem)</div>
+					<div class="span">— dla najlepszego działania podczas snu </div>
+				</div>
+				<div class="howto-item">
+					<div><img src="images/day.svg" class="howto-img"></div>
+					<div class="todo">Stosuj rano</div>
+					<div class="span">— aby wyeliminować dyskomfort w ciągu dnia</div>
+				</div>
+				<div class="howto-item">
+					<div><img src="images/year.svg" class="howto-img"></div>
+					<div class="todo">Stosuj regularnie, aby uzyskać długotrwałe rezultaty</div>
+					<div class="span"></div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<section class="section6">
+		<div class="container">
+			<div class="section6-top">
+				<h2 class="section6-top-title">Weź Hemoulgan i:</h2>
+				<ul class="top-list">
+					<li class="top-list-item"><span>1</span>Szybko wyeliminuj krwawienie i ból</li>
+					<li class="top-list-item"><span>2</span>Pozbądź się stanu zapalnego i obrzęku</li>
+					<li class="top-list-item"><span>3</span>Nie bój się nawrotu choroby</li>
+				</ul>
+				<div class="relative">
+					<div class="form-btn form-btn_big"><a href="#bottom-form" class="scroll-to">Zamów Hemoulgan</a>
+					</div>
+					<div class="form-btn form-btn_big form-btn-hover"><a href="#bottom-form" class="scroll-to">Zamów
+							Hemoulgan</a></div>
+				</div>
+			</div>
+			<div class="section6-bottom">
+				<h2 class="section6-bottom-title">Badania na dużą skalę potwierdzają skuteczność <span>Hemoulgan</span>
+				</h2>
+				<p>Wśród 5150 pacjentów Clinic-Pro</p>
+				<div class="section6-main clearfix">
+					<div class="left-block">
+						<ul class="left-block-list">
+							<li class="left-block-item"><span class="circle"></span>27% (1390 osób) <span>całkowicie
+									pozbyło się hemoroidów</span></li>
+							<li class="left-block-item"><span class="circle"></span>71,7% (3693 osób)
+								<span>wyeliminowało główne problemy</span>
+							</li>
+							<li class="left-block-item"><span class="circle"></span>1,3% (67 osób) <span>poczuło
+									ulgę</span></li>
+						</ul>
+					</div>
+					<div class="right-block">
+						<h4 class="right-block-title">Clinic-Pro <span>Klinika Współczesnej Proktologii</span></h4>
+						<p>Dbamy o naszych klientów, dlatego zalecamy tylko te produkty, których jesteśmy w 100%
+							pewni. Z tego względu przeprowadziliśmy badania kliniczne Hemoulgan — jedynego certyfikowanego
+							preparatu o tak wysokiej jakości i skuteczności.</p>
+					</div>
+				</div>
+			</div>
+			<div class="logo-line">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+	</section>
+	<section class="section7" id="specialist">
+		<div class="container">
+			<h2 class="section7-title">Dlaczego eksperci zalecają <span class="yellow">Hemoulgan</span></h2>
+			<div class="main-content">
+				<ul class="section7-list">
+					<li class="section7-item">
+						<div class="img-block">
+							<img src="images/spec1.png" alt="spec1" class="spec-img">
+						</div>
+						<div class="item-block">
+							<h4 class="spec-name">Damian Roszczak</h4>
+							<span>Proktolog, onkolog, wykładowca akademicki, 23 lata doświadczenia</span>
+							<p class="main-text first">
+
+								Dowiedziałem się o Hemoulgan podczas konferencji w Barcelonie na początku 2024 roku.
+								Teraz polecam kapsułki pacjentom w każdym stadium hemoroidów. Do tej pory nie widziałem
+								bardziej skutecznego środka. Hemoulgan delikatnie i szybko działa na organizm,
+								przywracając napięcie żył i uniemożliwia nawrót choroby.
+
+							</p>
+						</div>
+						<span class="main-text-btn">+</span>
+					</li>
+					<li class="section7-item">
+						<div class="img-block">
+							<img src="images/spec2.png" alt="spec2" class="spec-img">
+						</div>
+						<div class="item-block">
+							<h4 class="spec-name">Eugenia Michalska</h4>
+							<span>Urolog, proktolog, 11 lat doświadczenia</span>
+							<p class="main-text second">
+
+								Tak nieprzyjemny problem jak hemoroidy często występuje u kobiet w ciąży. Znalazłam
+								kompleksowy środek, który można polecać - Hemoulgan. Kapsułki są całkowicie naturalne,
+								dlatego nie ma ryzyka zaszkodzenia dziecku lub przyszłej matce. A w stosowaniu
+								Hemoulgan
+								jest przyjemny, w przeciwieństwie do innego rodzaju leków.
+
+							</p>
+						</div>
+						<span class="main-text-btn">+</span>
+					</li>
+					<li class="section7-item">
+						<div class="img-block">
+							<img src="images/spec3.png" alt="spec3" class="spec-img">
+						</div>
+						<div class="item-block">
+							<h4 class="spec-name">Romuald Wilczkowski</h4>
+							<span>Proktolog, flebolog, 27 lat doświadczenia</span>
+							<p class="main-text third">
+
+
+								Najważniejsze w leczeniu hemoroidów jest wyeliminowanie obwisłych żył. Kapsułki
+								doskonale sobie z tym radzą. Jeśli nie chcesz, aby błona śluzowa krwawiła przez całe
+								życie, zadbaj o siebie. Stosuj Hemoulgan zgodnie z instrukcją dotyczącą kuracji, jedz
+								prawidłowo, przestrzegaj zasad higieny. Stosuj Hemoulgan profilaktycznie, zaoszczędzi
+								ci
+								to dużo nerwów i pieniędzy.
+
+
+							</p>
+						</div>
+						<span class="main-text-btn">+</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<section class="section8" id="review">
+		<div class="container">
+			<h2 class="section8-title">Opinie osób, które stosowały <span>Hemoulgan</span></h2>
+			<h4 class="section8-subtitle">
+
+				Czy stosowałeś Hemoulgan? Pomóż innym upewnić się o jego skuteczności.
+
+			</h4>
+			<ul class="section8-list">
+				<li class="section8-item">
+					<div class="img-block">
+						<img src="images/people1.png" alt="people1">
+					</div>
+					<div class="item-block">
+						<h4 class="people-name">Marianna, 45 lat</h4>
+						<p>Z Hemoulgan jest lżej i wygodniej!</p>
+						<span>
+
+							Witam! Miałam problem — hemoroidy trzeciego stopnia. Nie leczyłam ich, dopóki nie
+							zachorowałam całkowicie. Nawet wtedy wstydziłam się zapytać w aptece, jakie leki są dostępne! To był
+							koszmar! Wszystkie środki, które mi zaoferowano, musiałabym w siebie wpychać 4 razy
+							dziennie. A potem położyć się na pół godziny, aż się przyswoją. Czy dyrektor będzie za mnie
+							teraz pracował? Koleżanka z pracy zobaczyła, że nie mogę usiąść i opowiedziała mi o
+							Hemoulgan. Jestem jej wdzięczna! Ten środek pomógł mi bardzo szybko! Skutecznie i
+							niezauważalnie - nie martwiłam się, minął dyskomfort stosowania, ja poprostu połykałam kapsułki i szłam do
+							pracy.
+
+						</span>
+					</div>
+					<span class="main-text-btn">+</span>
+				</li>
+				<li class="section8-item">
+					<div class="img-block">
+						<img src="images/people2.png" alt="people2">
+					</div>
+					<div class="item-block">
+						<h4 class="people-name">Włodzimierz, 45 lat</h4>
+						<p>
+							W mojej historii Hemoulgan jest liderem
+						</p>
+						<span>
+
+							Hemoroidy towarzyszą mi od 25 lat. Żyły są słabe, a utrata masy ciała nie pomogła. Co
+							roku pojawiały się problemy. Przez 20 lat, jak się domyślacie, przetestowałem dużo
+							środków. Jeden z najpopularniejszych — P **** — kiedyś działał całkiem nieźle, ale dwa lata temu przestał pomagać, zarówno mnie, jak i moim znajomym. Najwyraźniej producent zaczął oszczędzać i zmienił skład. O Hemoulganie przeczytałem na forum. Był tam bardzo chwalony, więc też postanowiłem zamówić. I powiem Wam jedno, przyjaciele – to naprawdę rewelacja! Od półtora roku nie miałem ani jednego krwotoku. Z czystym sumieniem polecam!
+
+						</span>
+					</div>
+					<span class="main-text-btn">+</span>
+				</li>
+				<li class="section8-item">
+					<div class="img-block">
+						<img src="images/people3.png" alt="people3">
+					</div>
+					<div class="item-block">
+						<h4 class="people-name">Krystyna, 28 lat</h4>
+						<p>Po porodzie nie mogłam pozbyć się bólu</p>
+						<span>
+
+							Pracuję jako ekspedientka. Rok temu urodziłam, trudny poród, dziecko było duże - 4500 kg. Praca
+							jest w większości siedząca. Z tego powodu pojawiły się hemoroidy. Bolało mnie gdy kichałam,
+							kaszlałam, śmiałam się! Nie mogłam pozbyć się bólu! Ani kremy, ani świece nie działały,
+							ponieważ zawsze siedziałam na obolałym miejscu. Koleżanka ze szpitala doradziła mi
+							Hemoulgan. Już trzeciego dnia użytkowania czułam się bardzo dobrze! To naprawdę świetny
+							środek!
+
+						</span>
+					</div>
+					<span class="main-text-btn">+</span>
+				</li>
+			</ul>
+			<textarea rows="8" placeholder="Dodaj swoją opinię" class="people-review"></textarea>
+			<div class="relative">
+				<button class="form-btn form-btn_big form-btn_big btn_popup">Dodaj opinię</button>
+				<button class="form-btn form-btn_big form-btn_big btn_popup form-btn-hover">Dodaj opinię</button>
+			</div>
+
+		</div>
+	</section>
+
+	<section class="section11">
+		<div class="container">
+			<h2 class="section11-title"><span>Możesz</span> zamówić oryginalny Hemoulgan <br><span>tylko na naszej
+					stronie internetowej</span></h2>
+			<div class="section11-animate">
+				<ul class="section11-list">
+					<li class="section11-item">
+						<div class="img-block">
+							<img src="images/section11-1.png" alt="11-1" class="img">
+						</div>
+						<p>Wypełnij formularz na stronie</p>
+					</li>
+					<li class="section11-item">
+						<div class="img-block">
+							<img src="images/section11-2.png" alt="11-2" class="img">
+						</div>
+						<p>Poczekaj, aż konsultant zadzwoni</p>
+					</li>
+					<li class="section11-item">
+						<div class="img-block">
+							<img src="images/section11-3.png" alt="11-3" class="img">
+						</div>
+						<p>Zapłać gotówką przy odbiorze</p>
+					</li>
+				</ul>
+				<div class="first-animate-block">
+					<div class="bubble first">
+						<div class="circle"></div>
+					</div>
+					<div class="bubble second">
+						<div class="circle"></div>
+					</div>
+					<div class="bubble third">
+						<div class="circle"></div>
+					</div>
+					<div class="bubble fourth">
+						<div class="circle"></div>
+					</div>
+					<div class="bubble fifth">
+						<div class="circle"></div>
+					</div>
+					<div class="bubble sixth">
+						<div class="circle"></div>
+					</div>
+					<div class="bubble seventh">
+						<div class="circle"></div>
+					</div>
+				</div>
+				<div class="second-animate-block">
+					<div class="bubble eighth">
+						<div class="circle"></div>
+					</div>
+					<div class="bubble ninth">
+						<div class="circle"></div>
+					</div>
+					<div class="bubble tenth">
+						<div class="circle"></div>
+					</div>
+					<div class="bubble eleventh">
+						<div class="circle"></div>
+					</div>
+					<div class="bubble twelfth">
+						<div class="circle"></div>
+					</div>
+					<div class="bubble thirteenth">
+						<div class="circle"></div>
+					</div>
+					<div class="bubble fourteenth">
+						<div class="circle"></div>
+					</div>
+				</div>
+			</div>
+			<p class="bottom-text">Jeśli masz jakieś pytania, zawsze możesz się z nami skontaktować i uzyskać
+				szczegółowe <span>bezpłatne</span> konsultacje na temat produktu i sposobu stosowania.</p>
+		</div>
+	</section>
+	<section class="section1 section12">
+		<div class="container">
+			<div class="main-block clearfix">
+				<div class="main-block-center">
+					<img src="images/product1.png" alt="pack" class="img">
+				</div>
+				<div class="main-block-left">
+					<h2 class="main-block-title">Wyeliminuj przyczynę choroby i nie pozwól, aby hemoroidy powróciły</h2>
+					<ul class="main-block-list">
+						<li class="main-block-item">
+							Zatrzymuje krwawienie <br><span>w ciagu 1 kuracji</span>
+						</li>
+						<li class="main-block-item">
+							Łagodzi stany zapalne i ból <br><span>po 1-2 tygodniach</span>
+						</li>
+						<li class="main-block-item">
+							Zapobiega powrotowi hemoroidów <br><span>po przejściu pełnej kuracji</span>
+						</li>
+					</ul>
+				</div>
+				<div class="main-block-right" id="bottom-form">
+					<p class="main-block-text">W tym roku <span>12 369</span> osób pozbyło się hemoroidów dzięki
+						Hemoulgan</p>
+					<form action="" method="post" class="x_order_form main-block-form al-form">
+						<br>
+						    <input name="csrf_token" type="hidden" value="bde737df579a16081a5073f71023bbc2:1768950811">
+    <select name="offer" class="form-control country_chang" style="display: none;">
+        <option data-country-code="PL" selected="selected" value="50764">
+            Польша        </option>
+    </select>
+
+    	
+						<div class="flex-price">
+							<div class="old-price">
+								<p class="top-text">Stara cena</p>
+								<p class="price"><span class="x_price_previous number al-raw-cost-promo"><x-oldprice>299</x-oldprice></span><span class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span></p>
+							</div>
+							<div class="new-price">
+								<p class="top-text">Nowa cena</p>
+								<p class="price radius"><span class="x_price_current number al-raw-cost"><x-newprice>99</x-newprice></span><span class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span></p>
+							</div>
+						</div>
+						<div class="input-wrapper name-label">
+							<input type="text" placeholder="Imię i Nazwisko" required="" class="input" name="name" autocomplete="name" id="name2" title="Dozwolone są tylko litery i spacje">
+							<label for="name2"></label>
+							<i></i>
+						</div>
+						<div class="input-wrapper phone-label">
+							<input type="tel" placeholder="Numer telefonu" required="" class="input" name="phone" autocomplete="tel" id="phone2" title="Proszę wpisać numer zgodnie z przykładem: +48123456789 lub 123456789">
+							<label for="phone2"></label>
+							<i></i>
+						</div>
+						<div class="relative">
+							<button class="form-btn">Zamów</button>
+							<button class="form-btn form-btn-hover">Zamów</button>
+						</div>
+						<p class="bottom-text">Pozostało <span class="lastpack js-countdown">20</span> opakowań w cenie
+							promocyjnej</p>
+					</form>
+					<p class="save-text">Twoje dane są chronione!</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="popup-container">
+		<div class="popup-block">
+			<h2>Dziękujemy za opinie. <br>Została wysłana do moderacji.</h2>
+			<p>Wulgaryzmy, nieuprzejme komentarze lub reklamy zostaną usunięte.</p>
+			<span class="close_popup"></span>
+		</div>
+	</div>
+	<div class="ever-popup-build">
+		<div class="main-block main-block-popup" id="cloneThis">
+			<div class="left">
+				<p>Złóż zamówienie po okazyjnej cenie</p>
+				<img src="images/product1.png" alt="pack" class="img">
+			</div>
+			<form action="" method="post" class="x_order_form main-block-form al-form">
+				<br>
+				    <input name="csrf_token" type="hidden" value="bde737df579a16081a5073f71023bbc2:1768950811">
+    <select name="offer" class="form-control country_chang" style="display: none;">
+        <option data-country-code="PL" selected="selected" value="50764">
+            Польша        </option>
+    </select>
+
+    	
+				<div class="flex-price">
+					<div class="old-price">
+						<p class="top-text">Stara cena</p>
+						<p class="price"><span class="x_price_previous number al-raw-cost-promo"><x-oldprice>299</x-oldprice></span><span class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span></p>
+					</div>
+					<div class="new-price">
+						<p class="top-text">Nowa cena</p>
+						<p class="price radius"><span class="x_price_current number al-raw-cost"><x-newprice>99</x-newprice></span><span class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span>*</p>
+					</div>
+				</div>
+				<div class="input-wrapper name-label">
+					<input type="text" placeholder="Imię i Nazwisko" required="" title="Dozwolone są tylko litery i spacje" class="input" name="name" autocomplete="name" id="name3">
+					<label for="name3"></label>
+					<i></i>
+				</div>
+				<div class="input-wrapper phone-label">
+					<input type="tel" placeholder="Numer telefonu" required="" class="input" name="phone" autocomplete="tel" id="phone3" title="Proszę wpisać numer zgodnie z przykładem: +48123456789 lub 123456789">
+					<label for="phone3"></label>
+					<i></i>
+				</div>
+				<div class="relative">
+					<button class="form-btn">Zamów</button>
+					<button class="form-btn form-btn-hover">Zamów</button>
+				</div>
+				<p class="bottom-text">Pozostało <span class="lastpack js-countdown">20</span> opakowań w cenie
+					promocyjnej</p>
+			</form>
+		</div>
+	</div>
+	<div class="foot_en_center" style="text-align: center; margin: 0px auto; padding: 30px 0; font-size:15px">
+		<p>Galaxy Trade LTD</p>
+<p>16 George street, London, UK. skype: Galaxy-trade, email: Galaxy-trade2000@gmail.com</p>
+
+
+    
+            <p class="conf-link doclinks">
+        <a class="nav-link" href="" onclick="window.open('/policy_en.php'); return false;">Privacy Policy</a>
+          |
+        <a class="nav-link" href="" onclick="window.open('/terms_en.php'); return false;">Terms & Conditions</a>
+      </p>
+      
+    
+	</div>
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/main.min.css">
+	<script src="js/index.js"></script>
+	<script src="js/countdown.js"></script>
+	<!-- load jQuery 3_5_1 -->
+	<script src="js/jquery.min_1.js"></script>
+	<script type="text/javascript">
+		var jQuery_3_5_1 = $.noConflict(true);
+	</script>
+	<!-- end load -->
+
+
+	
+
+
+<!-- Success Modal -->
+<div id="successModal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; overflow:auto; background-color:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+    <div style="background-color:#fefefe; margin:auto; padding:20px; border:1px solid #888; width:90%; max-width:500px; border-radius:10px; text-align:center; position: relative; top: 50%; transform: translateY(-50%); box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+        <h2 style="color:#28a745; margin-bottom:15px;">Zamówienie potwierdzone!</h2>
+        <p style="font-size:16px; color:#333; margin-bottom:20px;">
+            Dziękujemy. Nasz konsultant wkrótce się z Tobą skontaktuje.
+        </p>
+        <button onclick="document.getElementById('successModal').style.display='none'" style="background-color:#28a745; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; font-size:16px; font-weight:bold;">
+            OK
+        </button>
+    </div>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', function () {
+        var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('status') === 'success') {
+            var modal = document.getElementById('successModal');
+            if (modal) modal.style.display = 'flex';
+            
+            if (typeof gtag === 'function') {
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-17890447518/j4FdCLD__OgbEJ6h6tJC',
+                    'value': 25,
+                    'currency': 'USD',
+                    'transaction_id': Date.now()
+                });
+            }
+       }
+    });
+</script>
+<script src="js/simple-submit.js"></script>
+</body></html>
