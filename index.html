@@ -1,92 +1,96 @@
-<!DOCTYPE html><html lang="pl"><head>
+<!DOCTYPE html>
+<html lang="pl">
 
-<script src="js/jquery.min.js"></script>
+<head>
 
-    <script>
-    function set_validator_errors(){
-        orderValidator.errorTitle = 'Proszę poprawić następujące błędy'; 
+	<script src="js/jquery.min.js"></script>
 
-        orderValidator.errorNameField = 'Imię'; 
-        orderValidator.errorNameMess = 'Wpisz swoje imię'; 
-        
-        orderValidator.errorPhoneField = 'Telefon'; 
-        orderValidator.errorPhoneMess = 'Wpisz poprawny numer telefonu'; 
-        
-        orderValidator.errorAddress = 'Wpisz poprawny adres'; 
-        orderValidator.errorRequired = 'Pole wymagane'; 
-        orderValidator.errorMaxLength = 'poprawny maksymalny znak {1}'; 
-        orderValidator.errorMinLength = 'prawidłowy znak minimum {1}'; 
-        orderValidator.errorEmailField = 'E-mail';
-        orderValidator.errorEmail = 'podano nieprawidłowy adres e-mail';
-        }
-    </script>
-    
-<script>
+	<script>
+		function set_validator_errors() {
+			orderValidator.errorTitle = 'Proszę poprawić następujące błędy';
 
+			orderValidator.errorNameField = 'Imię';
+			orderValidator.errorNameMess = 'Wpisz swoje imię';
 
-window.app = {
-    timestamp: parseInt((new Date()).getTime() / 1000),
-    jq: jQuery,
-    formAction: window.location.href,
-    leadToken: '69700c1b76fbf6.22088349',
-    offers: {"50764":{"id":50764,"country":{"code":"PL","name":"\u041f\u043e\u043b\u044c\u0448\u0430"},"price":"99","price2":"299","currency":{"code":"PLN","name":"Z\u0141"},"discount":"","delivery_price":"","link":"","product_sku":"","prepaid_info_html":""}},
-    currentOffer: {"id":50764,"country":{"code":"PL","name":"\u041f\u043e\u043b\u044c\u0448\u0430"},"price":"99","price2":"299","currency":{"code":"PLN","name":"Z\u0141"},"discount":"","delivery_price":"","link":"","product_sku":"","prepaid_info_html":""},
-    allowedCountries: ["PL"],
-    _setOfferId: false,
-    streamHid: '',
-    showcaseUrl: '',
-    disablePhoneMask: Boolean(),
-    
-    setOffer: function (offerId) {
-        if (offerId == this._setOfferId) {
-            return ;
-        }
-        this._setOfferId = offerId;
-        if (offerId) {
-            var offer = app.offers[offerId];
-            var previousOffer = app.currentOffer;
-            app.currentOffer = offer;
-            var event = this.jq.Event("offerchange");
-            event.previousOffer = previousOffer;
-            event.currentOffer = app.currentOffer;
-            this.jq(document).trigger(event);
-            this.updatePage(offer);
-        } else {
-            $('input[name=country]').val('');
-        }
-    },
-    
-    updatePage: function(offer) {
-        $('x-newprice').html(offer.price);
-        $('x-oldprice').html(offer.price2);
-        $('x-currency').html(offer.currency.name);
-        $('input[name=offer], select[name=offer]').val(offer.id);
-        $('input[name=country]').val(offer.country.code);
-    },
+			orderValidator.errorPhoneField = 'Telefon';
+			orderValidator.errorPhoneMess = 'Wpisz poprawny numer telefonu';
 
-    blockForm: function() {
-        // Блокируем кнопки при отправке формы
-        $('input[type=submit]', $(this)).prop( 'disabled', true ).attr( 'disabled', true );
-        $('button', $(this)).prop( 'disabled', true ).attr( 'disabled', true );
-        app.incompleteOrder.lock = true;
-        clearTimeout(app.incompleteOrder.timer);
-    },
+			orderValidator.errorAddress = 'Wpisz poprawny adres';
+			orderValidator.errorRequired = 'Pole wymagane';
+			orderValidator.errorMaxLength = 'poprawny maksymalny znak {1}';
+			orderValidator.errorMinLength = 'prawidłowy znak minimum {1}';
+			orderValidator.errorEmailField = 'E-mail';
+			orderValidator.errorEmail = 'podano nieprawidłowy adres e-mail';
+		}
+	</script>
 
-    unblockForm: function() {
-        $('input[type=submit]', $(this)).prop( 'disabled', false ).attr( 'disabled', false );
-        $('button[type=submit]', $(this)).prop( 'disabled', false ).attr( 'disabled', false );
-        app.incompleteOrder.lock = false;
-        clearTimeout(app.incompleteOrder.timer);
-    }
-
-};
+	<script>
 
 
-</script><script src="js/form.validate.js"></script>
-<script src="js/interPhoneCodes.js"></script>
-<script src="js/showcase.js"></script>
-<script src="js/form.incomplete.js"></script>
-<script src="js/main2.js"></script>
+		window.app = {
+			timestamp: parseInt((new Date()).getTime() / 1000),
+			jq: jQuery,
+			formAction: window.location.href,
+			leadToken: '69700c1b76fbf6.22088349',
+			offers: { "50764": { "id": 50764, "country": { "code": "PL", "name": "\u041f\u043e\u043b\u044c\u0448\u0430" }, "price": "99", "price2": "299", "currency": { "code": "PLN", "name": "Z\u0141" }, "discount": "", "delivery_price": "", "link": "", "product_sku": "", "prepaid_info_html": "" } },
+			currentOffer: { "id": 50764, "country": { "code": "PL", "name": "\u041f\u043e\u043b\u044c\u0448\u0430" }, "price": "99", "price2": "299", "currency": { "code": "PLN", "name": "Z\u0141" }, "discount": "", "delivery_price": "", "link": "", "product_sku": "", "prepaid_info_html": "" },
+			allowedCountries: ["PL"],
+			_setOfferId: false,
+			streamHid: '',
+			showcaseUrl: '',
+			disablePhoneMask: Boolean(),
+
+			setOffer: function (offerId) {
+				if (offerId == this._setOfferId) {
+					return;
+				}
+				this._setOfferId = offerId;
+				if (offerId) {
+					var offer = app.offers[offerId];
+					var previousOffer = app.currentOffer;
+					app.currentOffer = offer;
+					var event = this.jq.Event("offerchange");
+					event.previousOffer = previousOffer;
+					event.currentOffer = app.currentOffer;
+					this.jq(document).trigger(event);
+					this.updatePage(offer);
+				} else {
+					$('input[name=country]').val('');
+				}
+			},
+
+			updatePage: function (offer) {
+				$('x-newprice').html(offer.price);
+				$('x-oldprice').html(offer.price2);
+				$('x-currency').html(offer.currency.name);
+				$('input[name=offer], select[name=offer]').val(offer.id);
+				$('input[name=country]').val(offer.country.code);
+			},
+
+			blockForm: function () {
+				// Блокируем кнопки при отправке формы
+				$('input[type=submit]', $(this)).prop('disabled', true).attr('disabled', true);
+				$('button', $(this)).prop('disabled', true).attr('disabled', true);
+				app.incompleteOrder.lock = true;
+				clearTimeout(app.incompleteOrder.timer);
+			},
+
+			unblockForm: function () {
+				$('input[type=submit]', $(this)).prop('disabled', false).attr('disabled', false);
+				$('button[type=submit]', $(this)).prop('disabled', false).attr('disabled', false);
+				app.incompleteOrder.lock = false;
+				clearTimeout(app.incompleteOrder.timer);
+			}
+
+		};
+
+
+	</script>
+	<script src="js/form.validate.js"></script>
+	<script src="js/interPhoneCodes.js"></script>
+	<script src="js/showcase.js"></script>
+	<script src="js/form.incomplete.js"></script>
+	<script src="js/main2.js"></script>
 
 
 
@@ -96,15 +100,22 @@ window.app = {
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 	<script src="js/jquery-3.4.1.min.js"></script>
-<!-- Global site tag (gtag.js) - Google Ads -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17890447518"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'AW-17890447518');
-</script>
-	</head>
+	<!-- Global site tag (gtag.js) - Google Ads -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17890447518"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'AW-17890447518');
+	</script>
+	<script type="text/javascript">
+		(function (c, l, a, r, i, t, y) {
+			c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+			t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+			y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+		})(window, document, "clarity", "script", "v4wkpm2ckx");
+	</script>
+</head>
 
 <body>
 	<header class="header">
@@ -144,29 +155,37 @@ window.app = {
 
 					<form action="" method="post" class="x_order_form main-block-form al-form">
 						<br>
-						    <input name="csrf_token" type="hidden" value="bde737df579a16081a5073f71023bbc2:1768950811">
-    <select name="offer" class="form-control country_chang" style="display: none;">
-        <option data-country-code="PL" selected="selected" value="50764">
-            Польша        </option>
-    </select>
+						<input name="csrf_token" type="hidden" value="bde737df579a16081a5073f71023bbc2:1768950811">
+						<select name="offer" class="form-control country_chang" style="display: none;">
+							<option data-country-code="PL" selected="selected" value="50764">
+								Польша </option>
+						</select>
 
-    	
+
 						<div class="flex-price">
 							<div class="old-price">
 								<p class="top-text">Stara cena</p>
-								<p class="price"><span class="x_price_previous number al-raw-cost-promo"><x-oldprice>299</x-oldprice></span><span class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span></p>
+								<p class="price"><span
+										class="x_price_previous number al-raw-cost-promo"><x-oldprice>299</x-oldprice></span><span
+										class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span></p>
 							</div>
 							<div class="new-price">
 								<p class="top-text">Nowa cena</p>
-								<p class="price radius"><span class="x_price_current number al-raw-cost"><x-newprice>99</x-newprice></span><span class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span>*</p>
+								<p class="price radius"><span
+										class="x_price_current number al-raw-cost"><x-newprice>99</x-newprice></span><span
+										class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span>*</p>
 							</div>
 						</div>
 						<div class="input-wrapper name-label">
-							<input type="text" placeholder="Imię i Nazwisko" required="" class="input" name="name" autocomplete="name" id="name" title="Dozwolone są tylko litery i spacje">						<label for="name"></label>
+							<input type="text" placeholder="Imię i Nazwisko" required="" class="input" name="name"
+								autocomplete="name" id="name" title="Dozwolone są tylko litery i spacje"> <label
+								for="name"></label>
 							<i></i>
 						</div>
 						<div class="input-wrapper phone-label">
-							<input type="tel" placeholder="Numer telefonu" required="" class="input" name="phone" autocomplete="tel" id="phone" title="Proszę wpisać numer zgodnie z przykładem: +48123456789 lub 123456789">
+							<input type="tel" placeholder="Numer telefonu" required="" class="input" name="phone"
+								autocomplete="tel" id="phone"
+								title="Proszę wpisać numer zgodnie z przykładem: +48123456789 lub 123456789">
 							<label for="phone"></label>
 							<i></i>
 						</div>
@@ -229,7 +248,8 @@ window.app = {
 		<div class="container">
 			<h2 class="section3-title">Hemoulgan działa kompleksowo:</h2>
 			<p class="section3-subtitle">eliminuje <span>objawy</span> i <span>przyczyny</span> hemoroidów</p>
-			<h3 class="block-title">Kapsułki działają w dwóch kierunkach: miejscowo i na przepływ krwi w całym organizmie</h3>
+			<h3 class="block-title">Kapsułki działają w dwóch kierunkach: miejscowo i na przepływ krwi w całym
+				organizmie</h3>
 			<div class="main-content clearfix">
 				<div class="center-block">
 					<img src="images/product1.png" alt="pack" class="img">
@@ -321,7 +341,8 @@ window.app = {
 						</div>
 						<p>Objawy:</p>
 						<ul class="section4-sublist">
-							<li class="section4-subitem no-icon">Łączy właściwości form wewnętrznych i zewnętrznych:</li>
+							<li class="section4-subitem no-icon">Łączy właściwości form wewnętrznych i zewnętrznych:
+							</li>
 							<li class="section4-subitem">Krwawienie</li>
 							<li class="section4-subitem">Węzły zewnętrzne i wewnętrzne</li>
 							<li class="section4-subitem">Dyskomfort</li>
@@ -391,7 +412,8 @@ window.app = {
 					<div class="right-block">
 						<h4 class="right-block-title">Clinic-Pro <span>Klinika Współczesnej Proktologii</span></h4>
 						<p>Dbamy o naszych klientów, dlatego zalecamy tylko te produkty, których jesteśmy w 100%
-							pewni. Z tego względu przeprowadziliśmy badania kliniczne Hemoulgan — jedynego certyfikowanego
+							pewni. Z tego względu przeprowadziliśmy badania kliniczne Hemoulgan — jedynego
+							certyfikowanego
 							preparatu o tak wysokiej jakości i skuteczności.</p>
 					</div>
 				</div>
@@ -494,12 +516,14 @@ window.app = {
 						<span>
 
 							Witam! Miałam problem — hemoroidy trzeciego stopnia. Nie leczyłam ich, dopóki nie
-							zachorowałam całkowicie. Nawet wtedy wstydziłam się zapytać w aptece, jakie leki są dostępne! To był
+							zachorowałam całkowicie. Nawet wtedy wstydziłam się zapytać w aptece, jakie leki są
+							dostępne! To był
 							koszmar! Wszystkie środki, które mi zaoferowano, musiałabym w siebie wpychać 4 razy
 							dziennie. A potem położyć się na pół godziny, aż się przyswoją. Czy dyrektor będzie za mnie
 							teraz pracował? Koleżanka z pracy zobaczyła, że nie mogę usiąść i opowiedziała mi o
 							Hemoulgan. Jestem jej wdzięczna! Ten środek pomógł mi bardzo szybko! Skutecznie i
-							niezauważalnie - nie martwiłam się, minął dyskomfort stosowania, ja poprostu połykałam kapsułki i szłam do
+							niezauważalnie - nie martwiłam się, minął dyskomfort stosowania, ja poprostu połykałam
+							kapsułki i szłam do
 							pracy.
 
 						</span>
@@ -519,7 +543,11 @@ window.app = {
 
 							Hemoroidy towarzyszą mi od 25 lat. Żyły są słabe, a utrata masy ciała nie pomogła. Co
 							roku pojawiały się problemy. Przez 20 lat, jak się domyślacie, przetestowałem dużo
-							środków. Jeden z najpopularniejszych — P **** — kiedyś działał całkiem nieźle, ale dwa lata temu przestał pomagać, zarówno mnie, jak i moim znajomym. Najwyraźniej producent zaczął oszczędzać i zmienił skład. O Hemoulganie przeczytałem na forum. Był tam bardzo chwalony, więc też postanowiłem zamówić. I powiem Wam jedno, przyjaciele – to naprawdę rewelacja! Od półtora roku nie miałem ani jednego krwotoku. Z czystym sumieniem polecam!
+							środków. Jeden z najpopularniejszych — P **** — kiedyś działał całkiem nieźle, ale dwa lata
+							temu przestał pomagać, zarówno mnie, jak i moim znajomym. Najwyraźniej producent zaczął
+							oszczędzać i zmienił skład. O Hemoulganie przeczytałem na forum. Był tam bardzo chwalony,
+							więc też postanowiłem zamówić. I powiem Wam jedno, przyjaciele – to naprawdę rewelacja! Od
+							półtora roku nie miałem ani jednego krwotoku. Z czystym sumieniem polecam!
 
 						</span>
 					</div>
@@ -534,7 +562,8 @@ window.app = {
 						<p>Po porodzie nie mogłam pozbyć się bólu</p>
 						<span>
 
-							Pracuję jako ekspedientka. Rok temu urodziłam, trudny poród, dziecko było duże - 4500 kg. Praca
+							Pracuję jako ekspedientka. Rok temu urodziłam, trudny poród, dziecko było duże - 4500 kg.
+							Praca
 							jest w większości siedząca. Z tego powodu pojawiły się hemoroidy. Bolało mnie gdy kichałam,
 							kaszlałam, śmiałam się! Nie mogłam pozbyć się bólu! Ani kremy, ani świece nie działały,
 							ponieważ zawsze siedziałam na obolałym miejscu. Koleżanka ze szpitala doradziła mi
@@ -656,30 +685,37 @@ window.app = {
 						Hemoulgan</p>
 					<form action="" method="post" class="x_order_form main-block-form al-form">
 						<br>
-						    <input name="csrf_token" type="hidden" value="bde737df579a16081a5073f71023bbc2:1768950811">
-    <select name="offer" class="form-control country_chang" style="display: none;">
-        <option data-country-code="PL" selected="selected" value="50764">
-            Польша        </option>
-    </select>
+						<input name="csrf_token" type="hidden" value="bde737df579a16081a5073f71023bbc2:1768950811">
+						<select name="offer" class="form-control country_chang" style="display: none;">
+							<option data-country-code="PL" selected="selected" value="50764">
+								Польша </option>
+						</select>
 
-    	
+
 						<div class="flex-price">
 							<div class="old-price">
 								<p class="top-text">Stara cena</p>
-								<p class="price"><span class="x_price_previous number al-raw-cost-promo"><x-oldprice>299</x-oldprice></span><span class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span></p>
+								<p class="price"><span
+										class="x_price_previous number al-raw-cost-promo"><x-oldprice>299</x-oldprice></span><span
+										class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span></p>
 							</div>
 							<div class="new-price">
 								<p class="top-text">Nowa cena</p>
-								<p class="price radius"><span class="x_price_current number al-raw-cost"><x-newprice>99</x-newprice></span><span class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span></p>
+								<p class="price radius"><span
+										class="x_price_current number al-raw-cost"><x-newprice>99</x-newprice></span><span
+										class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span></p>
 							</div>
 						</div>
 						<div class="input-wrapper name-label">
-							<input type="text" placeholder="Imię i Nazwisko" required="" class="input" name="name" autocomplete="name" id="name2" title="Dozwolone są tylko litery i spacje">
+							<input type="text" placeholder="Imię i Nazwisko" required="" class="input" name="name"
+								autocomplete="name" id="name2" title="Dozwolone są tylko litery i spacje">
 							<label for="name2"></label>
 							<i></i>
 						</div>
 						<div class="input-wrapper phone-label">
-							<input type="tel" placeholder="Numer telefonu" required="" class="input" name="phone" autocomplete="tel" id="phone2" title="Proszę wpisać numer zgodnie z przykładem: +48123456789 lub 123456789">
+							<input type="tel" placeholder="Numer telefonu" required="" class="input" name="phone"
+								autocomplete="tel" id="phone2"
+								title="Proszę wpisać numer zgodnie z przykładem: +48123456789 lub 123456789">
 							<label for="phone2"></label>
 							<i></i>
 						</div>
@@ -710,30 +746,38 @@ window.app = {
 			</div>
 			<form action="" method="post" class="x_order_form main-block-form al-form">
 				<br>
-				    <input name="csrf_token" type="hidden" value="bde737df579a16081a5073f71023bbc2:1768950811">
-    <select name="offer" class="form-control country_chang" style="display: none;">
-        <option data-country-code="PL" selected="selected" value="50764">
-            Польша        </option>
-    </select>
+				<input name="csrf_token" type="hidden" value="bde737df579a16081a5073f71023bbc2:1768950811">
+				<select name="offer" class="form-control country_chang" style="display: none;">
+					<option data-country-code="PL" selected="selected" value="50764">
+						Польша </option>
+				</select>
 
-    	
+
 				<div class="flex-price">
 					<div class="old-price">
 						<p class="top-text">Stara cena</p>
-						<p class="price"><span class="x_price_previous number al-raw-cost-promo"><x-oldprice>299</x-oldprice></span><span class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span></p>
+						<p class="price"><span
+								class="x_price_previous number al-raw-cost-promo"><x-oldprice>299</x-oldprice></span><span
+								class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span></p>
 					</div>
 					<div class="new-price">
 						<p class="top-text">Nowa cena</p>
-						<p class="price radius"><span class="x_price_current number al-raw-cost"><x-newprice>99</x-newprice></span><span class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span>*</p>
+						<p class="price radius"><span
+								class="x_price_current number al-raw-cost"><x-newprice>99</x-newprice></span><span
+								class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span>*</p>
 					</div>
 				</div>
 				<div class="input-wrapper name-label">
-					<input type="text" placeholder="Imię i Nazwisko" required="" title="Dozwolone są tylko litery i spacje" class="input" name="name" autocomplete="name" id="name3">
+					<input type="text" placeholder="Imię i Nazwisko" required=""
+						title="Dozwolone są tylko litery i spacje" class="input" name="name" autocomplete="name"
+						id="name3">
 					<label for="name3"></label>
 					<i></i>
 				</div>
 				<div class="input-wrapper phone-label">
-					<input type="tel" placeholder="Numer telefonu" required="" class="input" name="phone" autocomplete="tel" id="phone3" title="Proszę wpisać numer zgodnie z przykładem: +48123456789 lub 123456789">
+					<input type="tel" placeholder="Numer telefonu" required="" class="input" name="phone"
+						autocomplete="tel" id="phone3"
+						title="Proszę wpisać numer zgodnie z przykładem: +48123456789 lub 123456789">
 					<label for="phone3"></label>
 					<i></i>
 				</div>
@@ -748,17 +792,17 @@ window.app = {
 	</div>
 	<div class="foot_en_center" style="text-align: center; margin: 0px auto; padding: 30px 0; font-size:15px">
 		<p>Galaxy Trade LTD</p>
-<p>16 George street, London, UK. skype: Galaxy-trade, email: Galaxy-trade2000@gmail.com</p>
+		<p>16 George street, London, UK. skype: Galaxy-trade, email: Galaxy-trade2000@gmail.com</p>
 
 
-    
-            <p class="conf-link doclinks">
-        <a class="nav-link" href="" onclick="window.open('/policy_en.php'); return false;">Privacy Policy</a>
-          |
-        <a class="nav-link" href="" onclick="window.open('/terms_en.php'); return false;">Terms & Conditions</a>
-      </p>
-      
-    
+
+		<p class="conf-link doclinks">
+			<a class="nav-link" href="" onclick="window.open('/policy_en.php'); return false;">Privacy Policy</a>
+			|
+			<a class="nav-link" href="" onclick="window.open('/terms_en.php'); return false;">Terms & Conditions</a>
+		</p>
+
+
 	</div>
 	<link rel="stylesheet" href="css/owl.carousel.min.css">
 	<link rel="stylesheet" href="css/main.min.css">
@@ -772,38 +816,43 @@ window.app = {
 	<!-- end load -->
 
 
-	
 
 
-<!-- Success Modal -->
-<div id="successModal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; overflow:auto; background-color:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
-    <div style="background-color:#fefefe; margin:auto; padding:20px; border:1px solid #888; width:90%; max-width:500px; border-radius:10px; text-align:center; position: relative; top: 50%; transform: translateY(-50%); box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
-        <h2 style="color:#28a745; margin-bottom:15px;">Zamówienie potwierdzone!</h2>
-        <p style="font-size:16px; color:#333; margin-bottom:20px;">
-            Dziękujemy. Nasz konsultant wkrótce się z Tobą skontaktuje.
-        </p>
-        <button onclick="document.getElementById('successModal').style.display='none'" style="background-color:#28a745; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; font-size:16px; font-weight:bold;">
-            OK
-        </button>
-    </div>
-</div>
-<script>
-    window.addEventListener('DOMContentLoaded', function () {
-        var urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('status') === 'success') {
-            var modal = document.getElementById('successModal');
-            if (modal) modal.style.display = 'flex';
-            
-            if (typeof gtag === 'function') {
-                gtag('event', 'conversion', {
-                    'send_to': 'AW-17890447518/j4FdCLD__OgbEJ6h6tJC',
-                    'value': 25,
-                    'currency': 'USD',
-                    'transaction_id': Date.now()
-                });
-            }
-       }
-    });
-</script>
-<script src="js/simple-submit.js"></script>
-</body></html>
+
+	<!-- Success Modal -->
+	<div id="successModal"
+		style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; overflow:auto; background-color:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+		<div
+			style="background-color:#fefefe; margin:auto; padding:20px; border:1px solid #888; width:90%; max-width:500px; border-radius:10px; text-align:center; position: relative; top: 50%; transform: translateY(-50%); box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+			<h2 style="color:#28a745; margin-bottom:15px;">Zamówienie potwierdzone!</h2>
+			<p style="font-size:16px; color:#333; margin-bottom:20px;">
+				Dziękujemy. Nasz konsultant wkrótce się z Tobą skontaktuje.
+			</p>
+			<button onclick="document.getElementById('successModal').style.display='none'"
+				style="background-color:#28a745; color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; font-size:16px; font-weight:bold;">
+				OK
+			</button>
+		</div>
+	</div>
+	<script>
+		window.addEventListener('DOMContentLoaded', function () {
+			var urlParams = new URLSearchParams(window.location.search);
+			if (urlParams.get('status') === 'success') {
+				var modal = document.getElementById('successModal');
+				if (modal) modal.style.display = 'flex';
+
+				if (typeof gtag === 'function') {
+					gtag('event', 'conversion', {
+						'send_to': 'AW-17890447518/j4FdCLD__OgbEJ6h6tJC',
+						'value': 25,
+						'currency': 'USD',
+						'transaction_id': Date.now()
+					});
+				}
+			}
+		});
+	</script>
+	<script src="js/simple-submit.js"></script>
+</body>
+
+</html>
