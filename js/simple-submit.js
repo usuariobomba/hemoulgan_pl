@@ -135,12 +135,132 @@ function initForm() {
 
     console.log('✅ Configuração concluída!');
 }
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initForm);
-} else {
-    initForm();
-}
 window.addEventListener('load', function () {
     console.log('🌐 Window.load disparado...');
     setTimeout(initForm, 100);
 });
+
+// ===== ABANDONED FORM CAPTURE =====
+var abandonedTimers = new Map();
+var abandonedSent = new Map();
+
+function checkAndSendAbandoned(form) {
+    if (abandonedSent.get(form)) return;
+
+    var nameInput = form.querySelector('[name="name"]');
+    var phoneInput = form.querySelector('[name="phone"]');
+
+    var name = nameInput ? nameInput.value.trim() : '';
+    var phone = phoneInput ? phoneInput.value.trim() : '';
+
+    // Validations consistent with processSubmit
+    if (!name || name.length < 2) return;
+    if (!phone || phone.length < 8) return;
+
+    console.log('🕵️ Detectado possível abandono de formulário. Enviando dados...');
+
+    // Prepare data
+    var formData = {};
+    var inputs = form.querySelectorAll('input, select, textarea');
+    inputs.forEach(function (input) {
+        if (input.name && input.value) {
+            formData[input.name] = input.value;
+        }
+    });
+
+    var urlParams = new URLSearchParams(window.location.search);
+    ['gclid', 'web_id', 'sub1', 'sub2', 'sub3', 'sub4', 'sub5', 'utm_source', 'utm_medium', 'utm_campaign'].forEach(function (param) {
+        var val = urlParams.get(param);
+        if (val) formData[param] = val;
+    });
+
+    if (formData.gclid && !formData.sub1) {
+        formData.sub1 = formData.gclid;
+    }
+
+    // Add flag for backend/tracking if needed (optional)
+    formData.comment = "LEAD RECUPERADO (ABANDONO)";
+
+    abandonedSent.set(form, true);
+
+    // Send silently
+    fetch('/api/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+    }).then(response => {
+        console.log('🕵️ Dados de abandono enviados. Status:', response.status);
+    }).catch(err => {
+        console.error('🕵️ Erro ao enviar dados de abandono:', err);
+    });
+}
+
+function initAbandonedCapture(form) {
+    var inputs = form.querySelectorAll('input[name="name"], input[name="phone"]');
+
+    inputs.forEach(function (input) {
+        // Reset timer on input
+        input.addEventListener('input', function () {
+            if (abandonedSent.get(form)) return;
+
+            if (abandonedTimers.has(form)) {
+                clearTimeout(abandonedTimers.get(form));
+            }
+
+            // Wait 5 seconds after last typing to send
+            var timer = setTimeout(function () {
+                checkAndSendAbandoned(form);
+            }, 5000);
+
+            abandonedTimers.set(form, timer);
+        });
+
+        // Also check on blur (user leaves field)
+        input.addEventListener('blur', function () {
+            // Check immediately on blur if valid
+            checkAndSendAbandoned(form);
+        });
+    });
+}
+// ==================================
+
+function initForm() {
+    console.log('🔧 Iniciando configuração...');
+
+    var forms = document.querySelectorAll('form');
+    console.log('📋 Encontrados ' + forms.length + ' formulários');
+
+    if (forms.length === 0) {
+        console.warn('⚠️ Nenhum formulário encontrado ainda. Tentando novamente...');
+        setTimeout(initForm, 500);
+        return;
+    }
+
+    forms.forEach(function (form, index) {
+        console.log('⚙️ Configurando formulário #' + index);
+
+        // Init abandoned capture
+        initAbandonedCapture(form);
+
+        form.addEventListener('submit', function (e) {
+            console.log('🎯 Submit event capturado!');
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            processSubmit(form);
+        }, true);
+
+        var buttons = form.querySelectorAll('button[type="submit"]');
+        buttons.forEach(function (btn) {
+            console.log('🔘 Adicionando listener no botão');
+            btn.addEventListener('click', function (e) {
+                console.log('🖱️ Botão clicado!');
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                processSubmit(form);
+            }, true);
+        });
+    });
+
+    console.log('✅ Configuração concluída!');
+}
