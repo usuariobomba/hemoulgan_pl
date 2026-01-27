@@ -108,6 +108,14 @@
 		gtag('js', new Date());
 		gtag('config', 'AW-17890447518');
 	</script>
+	<!-- Google tag (gtag.js) - New Pixel -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17907696082"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'AW-17907696082');
+	</script>
 	<script type="text/javascript">
 		(function (c, l, a, r, i, t, y) {
 			c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
@@ -842,9 +850,18 @@
 				if (modal) modal.style.display = 'flex';
 
 				if (typeof gtag === 'function') {
+					// First pixel (old)
 					gtag('event', 'conversion', {
 						'send_to': 'AW-17890447518/j4FdCLD__OgbEJ6h6tJC',
 						'value': 1.0,
+						'currency': 'USD',
+						'transaction_id': Date.now()
+					});
+
+					// Second pixel (new - 24 USD)
+					gtag('event', 'conversion', {
+						'send_to': 'AW-17907696082/i5lpCIi_7O0bENKDh9tC',
+						'value': 24.0,
 						'currency': 'USD',
 						'transaction_id': Date.now()
 					});
