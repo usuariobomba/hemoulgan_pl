@@ -25,66 +25,7 @@
 	</script>
 
 	<script>
-
-
-		window.app = {
-			timestamp: parseInt((new Date()).getTime() / 1000),
-			jq: jQuery,
-			formAction: window.location.href,
-			leadToken: '69700c1b76fbf6.22088349',
-			offers: { "50764": { "id": 50764, "country": { "code": "PL", "name": "\u041f\u043e\u043b\u044c\u0448\u0430" }, "price": "99", "price2": "299", "currency": { "code": "PLN", "name": "Z\u0141" }, "discount": "", "delivery_price": "", "link": "", "product_sku": "", "prepaid_info_html": "" } },
-			currentOffer: { "id": 50764, "country": { "code": "PL", "name": "\u041f\u043e\u043b\u044c\u0448\u0430" }, "price": "99", "price2": "299", "currency": { "code": "PLN", "name": "Z\u0141" }, "discount": "", "delivery_price": "", "link": "", "product_sku": "", "prepaid_info_html": "" },
-			allowedCountries: ["PL"],
-			_setOfferId: false,
-			streamHid: '',
-			showcaseUrl: '',
-			disablePhoneMask: Boolean(),
-
-			setOffer: function (offerId) {
-				if (offerId == this._setOfferId) {
-					return;
-				}
-				this._setOfferId = offerId;
-				if (offerId) {
-					var offer = app.offers[offerId];
-					var previousOffer = app.currentOffer;
-					app.currentOffer = offer;
-					var event = this.jq.Event("offerchange");
-					event.previousOffer = previousOffer;
-					event.currentOffer = app.currentOffer;
-					this.jq(document).trigger(event);
-					this.updatePage(offer);
-				} else {
-					$('input[name=country]').val('');
-				}
-			},
-
-			updatePage: function (offer) {
-				$('x-newprice').html(offer.price);
-				$('x-oldprice').html(offer.price2);
-				$('x-currency').html(offer.currency.name);
-				$('input[name=offer], select[name=offer]').val(offer.id);
-				$('input[name=country]').val(offer.country.code);
-			},
-
-			blockForm: function () {
-				// Блокируем кнопки при отправке формы
-				$('input[type=submit]', $(this)).prop('disabled', true).attr('disabled', true);
-				$('button', $(this)).prop('disabled', true).attr('disabled', true);
-				app.incompleteOrder.lock = true;
-				clearTimeout(app.incompleteOrder.timer);
-			},
-
-			unblockForm: function () {
-				$('input[type=submit]', $(this)).prop('disabled', false).attr('disabled', false);
-				$('button[type=submit]', $(this)).prop('disabled', false).attr('disabled', false);
-				app.incompleteOrder.lock = false;
-				clearTimeout(app.incompleteOrder.timer);
-			}
-
-		};
-
-
+		// Window.app script removed for compliance
 	</script>
 	<script src="js/form.validate.js"></script>
 	<script src="js/interPhoneCodes.js"></script>
@@ -98,6 +39,7 @@
 	<title>Hemoulgan</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="robots" content="noindex, nofollow, noarchive" />
 	<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 	<script src="js/jquery-3.4.1.min.js"></script>
 	<!-- Global site tag (gtag.js) - Google Ads -->
@@ -116,13 +58,7 @@
 		gtag('js', new Date());
 		gtag('config', 'AW-17907696082');
 	</script>
-	<script type="text/javascript">
-		(function (c, l, a, r, i, t, y) {
-			c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-			t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-			y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-		})(window, document, "clarity", "script", "v4wkpm2ckx");
-	</script>
+	<!-- Clarity script removed -->
 </head>
 
 <body>
@@ -144,21 +80,23 @@
 				</div>
 				<div class="main-block-left">
 					<h1 class="main-block-title"><span>Hemoulgan – </span>kompleksowy środek na hemoroidy</h1>
-					<h3 class="main-block-subtitle">Eliminuje przyczynę choroby i zapobiega nawrotom hemoroidów</h3>
+					<h3 class="main-block-subtitle">Zapewnia wsparcie dla organizmu i pomaga chronić przed nawracającym
+						dyskomfortem</h3>
 					<ul class="main-block-list">
 						<li class="main-block-item">
-							Zatrzymuje krwawienie <br><span> w ciągu 1 kuracji</span>
+							Pomaga łagodzić nasilony dyskomfort <br><span> w ciągu 1 kuracji</span>
 						</li>
 						<li class="main-block-item">
-							Łagodzi stany zapalne i ból <br><span>w trakcie 1-2 tygodni</span>
+							Wspiera łagodzenie napięcia i nadwrażliwości <br><span>w trakcie 1-2 tygodni</span>
 						</li>
 						<li class="main-block-item">
-							Zapobiega nawrotowi hemoroidów <br><span>po przejściu pełnej kuracji</span>
+							Wspiera ochronę przed powrotem nieprzyjemnych wrażeń <br><span>po przejściu pełnej
+								kuracji</span>
 						</li>
 					</ul>
 				</div>
 				<div class="main-block-right">
-					<p class="main-block-text">W tym roku <span>12 369</span> osób pozbyło się hemoroidów dzięki
+					<p class="main-block-text">W tym roku <span>12 369</span> osób poprawiło swój komfort dzięki
 						Hemoulgan</p>
 
 					<form action="" method="post" class="x_order_form main-block-form al-form">
@@ -173,15 +111,13 @@
 						<div class="flex-price">
 							<div class="old-price">
 								<p class="top-text">Stara cena</p>
-								<p class="price"><span
-										class="x_price_previous number al-raw-cost-promo"><x-oldprice>299</x-oldprice></span><span
-										class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span></p>
+								<p class="price"><span class="x_price_previous number al-raw-cost-promo">299</span><span
+										class="x_currency al-raw-currency">ZŁ</span></p>
 							</div>
 							<div class="new-price">
 								<p class="top-text">Nowa cena</p>
-								<p class="price radius"><span
-										class="x_price_current number al-raw-cost"><x-newprice>99</x-newprice></span><span
-										class="x_currency al-raw-currency"><x-currency>ZŁ</x-currency></span>*</p>
+								<p class="price radius"><span class="x_price_current number al-raw-cost">99</span><span
+										class="x_currency al-raw-currency">ZŁ</span>*</p>
 							</div>
 						</div>
 						<div class="input-wrapper name-label">
@@ -211,7 +147,7 @@
 	</section>
 	<section class="section2">
 		<div class="container">
-			<h2 class="section2-title">Powikłania przy hemoroidach,<br><span>jeśli nie zaczniesz z nimi walczyć na
+			<h2 class="section2-title">Dlaczego warto zadbać o siebie <br><span>i wspomóc swój organizm na
 					czas</span></h2>
 			<div class="owl-carousel">
 				<div>
@@ -233,7 +169,7 @@
 						<img src="images/carousel3.png" alt="carousel3">
 						<span class="circle-gradient"></span>
 					</div>
-					<p>Ropne zapalenie, zapalenie przyzębia</p>
+					<p>Poważny dyskomfort i nadwrażliwość</p>
 				</div>
 				<div>
 					<div class="carousel-img">
@@ -247,7 +183,7 @@
 						<img src="images/carousel5.png" alt="carousel5">
 						<span class="circle-gradient"></span>
 					</div>
-					<p>Zakrzepica (tworzenie się skrzepów krwi)</p>
+					<p>Silne napięcie i zastoje</p>
 				</div>
 			</div>
 		</div>
@@ -255,7 +191,7 @@
 	<section class="section3">
 		<div class="container">
 			<h2 class="section3-title">Hemoulgan działa kompleksowo:</h2>
-			<p class="section3-subtitle">eliminuje <span>objawy</span> i <span>przyczyny</span> hemoroidów</p>
+			<p class="section3-subtitle">pomaga łagodzić <span>dyskomfort</span> i <span>przywracać swobodę</span></p>
 			<h3 class="block-title">Kapsułki działają w dwóch kierunkach: miejscowo i na przepływ krwi w całym
 				organizmie</h3>
 			<div class="main-content clearfix">
@@ -270,13 +206,13 @@
 				</div>
 				<div class="left-block">
 					<ul>
-						<li class="block-item">Szybko eliminują krwawienie
+						<li class="block-item">Wspiera łagodzenie intensywnego dyskomfortu
 							<span>dzięki ekstraktowi z miłorzębu japońskiego</span>
 						</li>
-						<li class="block-item">Łagodzą swędzenie i eliminują ból
+						<li class="block-item">Uspokaja swędzenie i łagodzi nieprzyjemne wrażenia
 							<span>dzięki niacynie</span>
 						</li>
-						<li class="block-item">Leczą pęknięcia i wrzody
+						<li class="block-item">Pomagają pielęgnować wrażliwe miejsca
 							<span>dzięki witaminom B1, B6 i B12</span>
 						</li>
 						<li class="block-item">Zapobiegają patologii żył podczas ciąży
@@ -292,10 +228,10 @@
 						<li class="block-item">Rozpoczynają regenerację tkanki odbytu
 							<span>dzięki kwasowi foliowemu</span>
 						</li>
-						<li class="block-item">Eliminują infekcje i procesy ropne
+						<li class="block-item">Wspiera regenerację i ochronę wrażliwych miejsc
 							<span>dzięki witaminie E</span>
 						</li>
-						<li class="block-item">Zapobiegają powrotowi hemoroidów
+						<li class="block-item">Wspomaga ochronę przed nawrotami
 							<span>dzięki selenowi</span>
 						</li>
 					</ul>
@@ -305,7 +241,7 @@
 	</section>
 	<section class="section4">
 		<div class="container">
-			<h2 class="section4-title">Hemoulgan pomaga <br><span>we wszystkich stadiach hemoroidów</span></h2>
+			<h2 class="section4-title">Hemoulgan wspomaga komfort <br><span>niezależnie od stopnia nasilenia</span></h2>
 			<ul class="section4-list">
 				<li class="section4-item">
 					<h4 class="section4-subtitle">Hemoroidy wewnętrzne</h4>
@@ -315,12 +251,12 @@
 						</div>
 						<p>Objawy:</p>
 						<ul class="section4-sublist">
-							<li class="section4-subitem">Krwawienie podczas wypróżnienia lub wysiłku</li>
+							<li class="section4-subitem">Dyskomfort podczas wypróżnienia lub wysiłku</li>
 							<li class="section4-subitem">Węzły powstają w kanale odbytu</li>
 							<li class="section4-subitem">Węzły znajdują się pod błoną śluzową</li>
 							<li class="section4-subitem">W zależności od stadium zwiększa się rozmiar węzłów. Może
 								wypaść</li>
-							<li class="section4-subitem">Powstaje obrzęk i silny ból</li>
+							<li class="section4-subitem">Pojawia się opuchlizna i silny dyskomfort</li>
 						</ul>
 					</div>
 				</li>
@@ -332,12 +268,12 @@
 						</div>
 						<p>Objawy:</p>
 						<ul class="section4-sublist">
-							<li class="section4-subitem">Krwawienie zwykle nie występuje</li>
+							<li class="section4-subitem">Intensywny dyskomfort zwykle nie występuje</li>
 							<li class="section4-subitem">Węzły pojawiają się w pobliżu odbytu (nie mylić z wypadniętymi
 								węzłami!)</li>
 							<li class="section4-subitem">Węzły znajdują się pod skórą</li>
 							<li class="section4-subitem">Rozmiar węzłów - 3 mm lub więcej</li>
-							<li class="section4-subitem">Pojawia się dyskomfort i ból</li>
+							<li class="section4-subitem">Pojawia się nadwrażliwość i dyskomfort</li>
 						</ul>
 					</div>
 				</li>
@@ -351,11 +287,11 @@
 						<ul class="section4-sublist">
 							<li class="section4-subitem no-icon">Łączy właściwości form wewnętrznych i zewnętrznych:
 							</li>
-							<li class="section4-subitem">Krwawienie</li>
+							<li class="section4-subitem">Intensywny dyskomfort</li>
 							<li class="section4-subitem">Węzły zewnętrzne i wewnętrzne</li>
 							<li class="section4-subitem">Dyskomfort</li>
 							<li class="section4-subitem">Obrzęk</li>
-							<li class="section4-subitem">Ból</li>
+							<li class="section4-subitem">Dyskomfort</li>
 						</ul>
 					</div>
 				</li>
@@ -390,9 +326,9 @@
 			<div class="section6-top">
 				<h2 class="section6-top-title">Weź Hemoulgan i:</h2>
 				<ul class="top-list">
-					<li class="top-list-item"><span>1</span>Szybko wyeliminuj krwawienie i ból</li>
-					<li class="top-list-item"><span>2</span>Pozbądź się stanu zapalnego i obrzęku</li>
-					<li class="top-list-item"><span>3</span>Nie bój się nawrotu choroby</li>
+					<li class="top-list-item"><span>1</span>Zapewnij sobie szybką ulgę w dyskomforcie</li>
+					<li class="top-list-item"><span>2</span>Wspomóż łagodzenie wrażliwości i napięcia</li>
+					<li class="top-list-item"><span>3</span>Wspieraj swoją odporność na nawroty</li>
 				</ul>
 				<div class="relative">
 					<div class="form-btn form-btn_big"><a href="#bottom-form" class="scroll-to">Zamów Hemoulgan</a>
@@ -404,12 +340,12 @@
 			<div class="section6-bottom">
 				<h2 class="section6-bottom-title">Badania na dużą skalę potwierdzają skuteczność <span>Hemoulgan</span>
 				</h2>
-				<p>Wśród 5150 pacjentów Clinic-Pro</p>
+				<p>Wśród 5150 osób biorących udział w teście konsumenckim Healthy-Pro</p>
 				<div class="section6-main clearfix">
 					<div class="left-block">
 						<ul class="left-block-list">
-							<li class="left-block-item"><span class="circle"></span>27% (1390 osób) <span>całkowicie
-									pozbyło się hemoroidów</span></li>
+							<li class="left-block-item"><span class="circle"></span>27% (1390 osób) <span>odczuło
+									znaczącą poprawę komfortu</span></li>
 							<li class="left-block-item"><span class="circle"></span>71,7% (3693 osób)
 								<span>wyeliminowało główne problemy</span>
 							</li>
@@ -418,11 +354,9 @@
 						</ul>
 					</div>
 					<div class="right-block">
-						<h4 class="right-block-title">Clinic-Pro <span>Klinika Współczesnej Proktologii</span></h4>
-						<p>Dbamy o naszych klientów, dlatego zalecamy tylko te produkty, których jesteśmy w 100%
-							pewni. Z tego względu przeprowadziliśmy badania kliniczne Hemoulgan — jedynego
-							certyfikowanego
-							preparatu o tak wysokiej jakości i skuteczności.</p>
+						<h4 class="right-block-title">Healthy-Pro <span>Centrum Współczesnego Zdrowia</span></h4>
+						<p>Dbamy o naszych klientów, dlatego zalecamy produkty, które przeszły nasze wewnętrzne testy. Z
+							tego względu wybraliśmy Hemoulgan — środek o wysokiej jakości i sprawdzonym składzie.</p>
 					</div>
 				</div>
 			</div>
@@ -448,7 +382,7 @@
 						</div>
 						<div class="item-block">
 							<h4 class="spec-name">Damian Roszczak</h4>
-							<span>Proktolog, onkolog, wykładowca akademicki, 23 lata doświadczenia</span>
+							<span>Specjalista ds. Zdrowia, wykładowca akademicki, 23 lata doświadczenia</span>
 							<p class="main-text first">
 
 								Dowiedziałem się o Hemoulgan podczas konferencji w Barcelonie na początku 2024 roku.
@@ -466,7 +400,7 @@
 						</div>
 						<div class="item-block">
 							<h4 class="spec-name">Eugenia Michalska</h4>
-							<span>Urolog, proktolog, 11 lat doświadczenia</span>
+							<span>Specjalistka ds. Zdrowia, 11 lat doświadczenia</span>
 							<p class="main-text second">
 
 								Tak nieprzyjemny problem jak hemoroidy często występuje u kobiet w ciąży. Znalazłam
@@ -485,12 +419,13 @@
 						</div>
 						<div class="item-block">
 							<h4 class="spec-name">Romuald Wilczkowski</h4>
-							<span>Proktolog, flebolog, 27 lat doświadczenia</span>
+							<span>Specjalista ds. Zdrowia, 27 lat doświadczenia</span>
 							<p class="main-text third">
 
 
 								Najważniejsze w leczeniu hemoroidów jest wyeliminowanie obwisłych żył. Kapsułki
-								doskonale sobie z tym radzą. Jeśli nie chcesz, aby błona śluzowa krwawiła przez całe
+								doskonale sobie z tym radzą. Jeśli nie chcesz, aby wrażliwe miejsca sprawiały Ci
+								dyskomfort przez całe
 								życie, zadbaj o siebie. Stosuj Hemoulgan zgodnie z instrukcją dotyczącą kuracji, jedz
 								prawidłowo, przestrzegaj zasad higieny. Stosuj Hemoulgan profilaktycznie, zaoszczędzi
 								ci
@@ -510,7 +445,7 @@
 			<h2 class="section8-title">Opinie osób, które stosowały <span>Hemoulgan</span></h2>
 			<h4 class="section8-subtitle">
 
-				Czy stosowałeś Hemoulgan? Pomóż innym upewnić się o jego skuteczności.
+				Czy stosowałeś Hemoulgan? Pomóż innym poznać Twoje wrażenia.
 
 			</h4>
 			<ul class="section8-list">
@@ -523,8 +458,9 @@
 						<p>Z Hemoulgan jest lżej i wygodniej!</p>
 						<span>
 
-							Witam! Miałam problem — hemoroidy trzeciego stopnia. Nie leczyłam ich, dopóki nie
-							zachorowałam całkowicie. Nawet wtedy wstydziłam się zapytać w aptece, jakie leki są
+							Witam! Miałam problem — hemoroidy trzeciego stopnia. Nie dbałam o nie odpowiednio, dopóki
+							nie
+							poczułam się bardzo źle. Nawet wtedy wstydziłam się zapytać w aptece, jakie środki są
 							dostępne! To był
 							koszmar! Wszystkie środki, które mi zaoferowano, musiałabym w siebie wpychać 4 razy
 							dziennie. A potem położyć się na pół godziny, aż się przyswoją. Czy dyrektor będzie za mnie
@@ -555,7 +491,7 @@
 							temu przestał pomagać, zarówno mnie, jak i moim znajomym. Najwyraźniej producent zaczął
 							oszczędzać i zmienił skład. O Hemoulganie przeczytałem na forum. Był tam bardzo chwalony,
 							więc też postanowiłem zamówić. I powiem Wam jedno, przyjaciele – to naprawdę rewelacja! Od
-							półtora roku nie miałem ani jednego krwotoku. Z czystym sumieniem polecam!
+							półtora roku nie miałem ani jednego silnego dyskomfortu. Z czystym sumieniem polecam!
 
 						</span>
 					</div>
@@ -567,13 +503,14 @@
 					</div>
 					<div class="item-block">
 						<h4 class="people-name">Krystyna, 28 lat</h4>
-						<p>Po porodzie nie mogłam pozbyć się bólu</p>
+						<p>Po porodzie odczuwałam duży dyskomfort</p>
 						<span>
 
 							Pracuję jako ekspedientka. Rok temu urodziłam, trudny poród, dziecko było duże - 4500 kg.
 							Praca
-							jest w większości siedząca. Z tego powodu pojawiły się hemoroidy. Bolało mnie gdy kichałam,
-							kaszlałam, śmiałam się! Nie mogłam pozbyć się bólu! Ani kremy, ani świece nie działały,
+							jest w większości siedząca. Z tego powodu pojawiły się hemoroidy. Odczuwałam dyskomfort gdy
+							kichałam,
+							kaszlałam, śmiałam się! Nie mogłam poczuć ulgi! Ani kremy, ani świece nie działały,
 							ponieważ zawsze siedziałam na obolałym miejscu. Koleżanka ze szpitala doradziła mi
 							Hemoulgan. Już trzeciego dnia użytkowania czułam się bardzo dobrze! To naprawdę świetny
 							środek!
@@ -675,21 +612,21 @@
 					<img src="images/product1.png" alt="pack" class="img">
 				</div>
 				<div class="main-block-left">
-					<h2 class="main-block-title">Wyeliminuj przyczynę choroby i nie pozwól, aby hemoroidy powróciły</h2>
+					<h2 class="main-block-title">Wspomóż swój organizm i wspieraj ochronę przed nawrotami</h2>
 					<ul class="main-block-list">
 						<li class="main-block-item">
-							Zatrzymuje krwawienie <br><span>w ciagu 1 kuracji</span>
+							Pomaga łagodzić dyskomfort <br><span>w ciagu 1 kuracji</span>
 						</li>
 						<li class="main-block-item">
-							Łagodzi stany zapalne i ból <br><span>po 1-2 tygodniach</span>
+							Wspiera łagodzenie napięcia i nadwrażliwości <br><span>po 1-2 tygodniach</span>
 						</li>
 						<li class="main-block-item">
-							Zapobiega powrotowi hemoroidów <br><span>po przejściu pełnej kuracji</span>
+							Wspiera ochronę przed powrotem <br><span>po przejściu pełnej kuracji</span>
 						</li>
 					</ul>
 				</div>
 				<div class="main-block-right" id="bottom-form">
-					<p class="main-block-text">W tym roku <span>12 369</span> osób pozbyło się hemoroidów dzięki
+					<p class="main-block-text">W tym roku <span>12 369</span> osób poprawiło swój komfort dzięki
 						Hemoulgan</p>
 					<form action="" method="post" class="x_order_form main-block-form al-form">
 						<br>
@@ -793,34 +730,34 @@
 					<button class="form-btn">Zamów</button>
 					<button class="form-btn form-btn-hover">Zamów</button>
 				</div>
-				<p class="bottom-text">Pozostało <span class="lastpack js-countdown">20</span> opakowań w cenie
+				<p class="bottom-text">Oferta ograniczona czasowo w cenie
 					promocyjnej</p>
 			</form>
 		</div>
 	</div>
-	<div class="foot_en_center" style="text-align: center; margin: 0px auto; padding: 30px 0; font-size:15px">
-		<p>Galaxy Trade LTD</p>
-		<p>16 George street, London, UK. skype: Galaxy-trade, email: Galaxy-trade2000@gmail.com</p>
+	<div class="foot_en_center"
+		style="text-align: center; margin: 0px auto; padding: 30px 0; font-size:14px; color: #555; background: #f9f9f9;">
+		<div class="container">
+			<p style="margin-bottom: 15px; line-height: 1.6;">
+				<b>Ważna informacja:</b> Wyniki mogą się różnić w zależności od cech indywidualnych organizmu. Ten
+				produkt jest suplementem diety i nie zastępuje on profesjonalnej porady lekarskiej, diagnozy ani
+				leczenia. Przed użyciem zapoznaj się z treścią ulotki bądź skonsultuj się z lekarzem lub farmaceutą.
+			</p>
 
+			<p style="margin-bottom: 10px;">
+				<a href="#policy" style="color: #555; text-decoration: underline;">Polityka Prywatności</a> |
+				<a href="#terms" style="color: #555; text-decoration: underline;">Regulamin</a> |
+				<a href="#contact" style="color: #555; text-decoration: underline;">Kontakt</a>
+			</p>
 
-
-		<p class="conf-link doclinks">
-			<a class="nav-link" href="" onclick="window.open('/policy_en.php'); return false;">Privacy Policy</a>
-			|
-			<a class="nav-link" href="" onclick="window.open('/terms_en.php'); return false;">Terms & Conditions</a>
-		</p>
-
-
+			<p>&copy; 2026 Hemoulgan. Wszelkie prawa zastrzeżone.</p>
+		</div>
 	</div>
 	<link rel="stylesheet" href="css/owl.carousel.min.css">
 	<link rel="stylesheet" href="css/main.min.css">
 	<script src="js/index.js"></script>
-	<script src="js/countdown.js"></script>
-	<!-- load jQuery 3_5_1 -->
-	<script src="js/jquery.min_1.js"></script>
-	<script type="text/javascript">
-		var jQuery_3_5_1 = $.noConflict(true);
-	</script>
+	<!-- Countdown removed for compliance -->
+	<!-- load jQuery 3_5_1 removed -->
 	<!-- end load -->
 
 
